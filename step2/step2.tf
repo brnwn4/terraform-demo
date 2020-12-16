@@ -63,5 +63,11 @@ resource "azurerm_linux_virtual_machine" "webvm" {
       "chmod +x ./startup.sh",
       "./startup.sh",
     ]
+    connection {
+      type     = "ssh"
+      user     = "adminuser"
+      private_key = file("~/.ssh/id_rsa")
+      host     = azurerm_public_ip.apppip[count.index].ip_address
+    }
   }
 }
